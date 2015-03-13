@@ -11,6 +11,22 @@ public class Person {
         this.hairColour = hairColour;
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public int getAge() {
+        return age;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public HairColour getHairColour() {
+        return hairColour;
+    }
+
     @Override
     public String toString() {
         return name;

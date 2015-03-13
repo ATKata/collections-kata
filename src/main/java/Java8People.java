@@ -1,18 +1,30 @@
+import java.util.Arrays;
+import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.stream.Collectors;
+
+import static java.util.stream.Collectors.toList;
 
 public class Java8People implements People {
 
-    public Java8People(Person[] peopleList) {
+    private final List<Person> personList;
+
+    public Java8People(Person... peopleList) {
+        personList = Arrays.asList(peopleList);
     }
 
     @Override
     public Iterable<Integer> getAges() {
-        return null;
+        return personList.stream()
+                .mapToInt(Person::getAge)
+                .boxed().collect(toList());
     }
 
     @Override
     public Iterable<Person> getPeopleOverAge(int minAge) {
-        return null;
+        return personList.stream()
+                .filter((person) -> person.getAge() > minAge)
+                .collect(toList());
     }
 
     @Override

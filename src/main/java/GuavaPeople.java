@@ -1,23 +1,29 @@
-import java.util.ArrayList;
+import com.google.common.base.Function;
+import com.google.common.collect.FluentIterable;
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.NoSuchElementException;
 
-public class Java7People implements People {
+import static java.util.stream.Collectors.toList;
 
+public class GuavaPeople implements People {
+
+    public static final Function<Person, Integer> GET_AGE = new Function<Person, Integer>() {
+        @Override
+        public Integer apply(Person person) {
+            return person.getAge();
+        }
+    };
     private final List<Person> personList;
 
-    public Java7People(Person... peopleList) {
+    public GuavaPeople(Person... peopleList) {
         personList = Arrays.asList(peopleList);
     }
 
     @Override
     public Iterable<Integer> getAges() {
-        List<Integer> ages = new ArrayList<>();
-        for(Person person:personList){
-            ages.add(person.age);
-        }
-        return ages;
+        return FluentIterable.from(personList).transform(GET_AGE);
     }
 
     @Override
